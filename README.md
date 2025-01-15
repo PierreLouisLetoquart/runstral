@@ -1,6 +1,6 @@
 # Runstral 🏃‍♂️
 
-A running companion powered by Mistral AI and Supabase.
+A running companion powered by Mistral AI and Supabase. [Live Demo here](https://runstral.letoquart.com)
 
 
 
