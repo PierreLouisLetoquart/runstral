@@ -48,7 +48,7 @@ export function NewSessionForm() {
               <div className="flex items-center gap-2 p-1 pr-1.5 rounded-full border border-input">
                 <FormControl>
                   <Input
-                    className="border-none focus-visible:ring-0 p-0 pl-4"
+                    className="border-none focus-visible:ring-0 p-0 pl-4 shadow-none"
                     placeholder="A recovery run..."
                     {...field}
                   />

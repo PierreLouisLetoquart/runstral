@@ -1,4 +1,5 @@
 import { NewSessionForm } from "@/components/new-session-form";
+import { WelcomeMessageCard } from "@/components/welcome-message-card";
 import { createClient } from "@/lib/supabase/server";
 
 // Define a type for the running session
@@ -13,13 +14,13 @@ type RunningSession = {
 export default async function Page() {
   const supabase = await createClient();
 
-  // Fetch running sessions for the authenticated user
   const { data: sessions, error } = await supabase
     .from("running_sessions")
     .select("*")
     .order("session_date", { ascending: false });
 
   if (error) {
+    // TODO: Handle error properly, like sending to Sentry or similar
     console.error("Error fetching running sessions:", error);
     return <div>Error loading running sessions</div>;
   }
@@ -58,9 +59,10 @@ export default async function Page() {
         </div>
       ) : (
         <div className="flex flex-col items-center gap-6">
-          <div className="text-sm font-light text-muted-foreground">
-            No running sessions found. Start tracking your runs 🚀
-          </div>
+          <WelcomeMessageCard />
+          <p className="text-lg font-light [&:not(:first-child)]:mt-12">
+            You have no running sessions yet. Start a new one!
+          </p>
           <NewSessionForm />
         </div>
       )}
