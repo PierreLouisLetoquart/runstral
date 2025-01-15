@@ -2,7 +2,11 @@
 
 A running companion powered by Mistral AI and Supabase.
 
-![demo video](./assets/demo.mov)
+
+
+https://github.com/user-attachments/assets/4a898355-e62e-47a9-9f3e-66a00c7e7ebb
+
+
 
 ## Features
 
