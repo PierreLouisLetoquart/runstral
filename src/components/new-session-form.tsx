@@ -3,6 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -13,6 +14,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { generateSession } from "@/app/action";
 
 const FormSchema = z.object({
   prompt: z
@@ -26,6 +28,8 @@ const FormSchema = z.object({
 });
 
 export function NewSessionForm() {
+  const [isLoading, setIsLoading] = useState(false);
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -33,13 +37,24 @@ export function NewSessionForm() {
     },
   });
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log(data);
+  async function onSubmit(data: z.infer<typeof FormSchema>) {
+    try {
+      setIsLoading(true);
+      await generateSession(data.prompt);
+    } catch (error) {
+      console.error("Failed to generate session:", error);
+    } finally {
+      setIsLoading(false);
+      form.reset();
+    }
   }
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full max-w-sm">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="w-full max-w-lg mx-auto"
+      >
         <FormField
           control={form.control}
           name="prompt"
@@ -53,8 +68,13 @@ export function NewSessionForm() {
                     {...field}
                   />
                 </FormControl>
-                <Button className="rounded-full" size={"sm"} type="submit">
-                  Generate
+                <Button
+                  className="rounded-full"
+                  size={"sm"}
+                  type="submit"
+                  disabled={isLoading}
+                >
+                  {isLoading ? "Generating..." : "Generate"}
                 </Button>
               </div>
               <FormMessage />

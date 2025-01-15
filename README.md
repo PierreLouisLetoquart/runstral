@@ -1,36 +1,24 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+### Required env vars:
 
-## Getting Started
+Supabase related env vars are the Database URL and the Supabase Anon key, Create a project and go to the settings to find them.
 
-First, run the development server:
+Mistral API key is required to access the API, create an account and get the key from the dashboard.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+cp .env.local.example .env.local
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Supabase table creation SQL:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```sql
+CREATE TABLE public.running_sessions (
+    id bigint primary key generated always as identity,
+    user_id uuid references auth.users(id) on delete cascade,
+    session_content text NOT NULL,
+    completed boolean NOT NULL DEFAULT false
+) WITH (OIDS=FALSE);
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+CREATE INDEX idx_running_sessions_user_id ON public.running_sessions(user_id);
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+ALTER TABLE public.running_sessions ENABLE ROW LEVEL SECURITY;
+```
