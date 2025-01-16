@@ -8,9 +8,8 @@ Note: The context prompt feature is not yet available. For the video, the contex
 
 ## Features
 
-- AI-powered running session tracking
-- Secure user authentication
-- Data persistence with Supabase
+- Usage of Mistral AI's API (and formatted output) for high-quality session generation
+- Secure user authentication with Supabase and secured Row Level Security (RLS) policies for data isolation
 
 ## Prerequisites
 
@@ -48,16 +47,46 @@ Edit `.env.local` with your credentials:
 Execute the following SQL in your Supabase SQL editor:
 
 ```sql
-CREATE TABLE public.running_sessions (
+CREATE TABLE public.sessions (
     id bigint primary key generated always as identity,
+    created_at timestamp with time zone default now() not null,
     user_id uuid references auth.users(id) on delete cascade,
-    session_content text NOT NULL,
-    completed boolean NOT NULL DEFAULT false
+    day date not null,
+    duration integer,
+    type text,
+    intensity text,
+    description text,
+    completed boolean default false not null,
+    warmup text,
+    cooldown text
 ) WITH (OIDS=FALSE);
 
-CREATE INDEX idx_running_sessions_user_id ON public.running_sessions(user_id);
+CREATE INDEX idx_sessions_user_id ON public.sessions(user_id);
 
-ALTER TABLE public.running_sessions ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.sessions ENABLE ROW LEVEL SECURITY;
+
+alter policy "Enable insert for authenticated users only"
+on "public"."sessions"
+to authenticated
+with check (
+  true
+);
+
+alter policy "Enable read access for all users"
+on "public"."sessions"
+to public
+using (
+  true
+);
+
+alter policy "Enable update for users based on user id"
+on "public"."sessions"
+to public
+using (
+ (( SELECT auth.uid() AS uid) = user_id)
+with check (
+  true
+);
 ```
 
 ## Usage
