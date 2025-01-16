@@ -11,7 +11,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { cn } from "@/lib/utils";
 import { generateSchema } from "@/lib/schemas";
 import { useUserContext } from "@/contexts/user-context";
-import generateSession from "@/app/actions";
+import { generateSession } from "@/app/actions";
 
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
