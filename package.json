@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "gentypes": "supabase gen types typescript --project-id \"ziqqrcaklixkzccudilr\" --schema public > ./src/lib/database.types.ts"
   },
   "dependencies": {
     "@ai-sdk/mistral": "^1.0.8",
@@ -42,6 +43,7 @@
     "eslint": "^9",
     "eslint-config-next": "15.1.4",
     "postcss": "^8",
+    "supabase": ">=1.8.1",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
   }
