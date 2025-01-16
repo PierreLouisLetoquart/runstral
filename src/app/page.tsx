@@ -2,20 +2,10 @@ import { WelcomeMessageCard } from "@/components/welcome-message-card";
 import { createClient } from "@/lib/supabase/server";
 import { NewSessionCard } from "@/components/new-session-card";
 import { ContextPromptCard } from "@/components/context-prompt-card";
+import { Database } from "@/lib/database.types";
+import { RunSessionCard } from "@/components/run-session-card";
 
-type RunningSession = {
-  id: string;
-  created_at: string;
-  user_id: string;
-  day: string;
-  duration: number;
-  intensity: string;
-  type: string;
-  description: string;
-  warmup: string;
-  cooldown: string;
-  completed: boolean;
-};
+type RunningSession = Database["public"]["Tables"]["sessions"]["Row"];
 
 export default async function Page() {
   const supabase = await createClient();
@@ -40,18 +30,7 @@ export default async function Page() {
           {sessions && sessions.length > 0 ? (
             <div className="grid gap-4">
               {sessions.map((session: RunningSession) => (
-                <div
-                  key={session.id}
-                  className="p-4 bg-[#E9F6E9] border border-[#B2DDB5] dark:bg-[#1B2A1E] dark:border-[#2D5736] rounded-[18px]"
-                >
-                  <div>{session.day}</div>
-                  <div>{session.description}</div>
-                  <div>{session.type}</div>
-                  <div>{session.intensity}</div>
-                  <div>{session.duration}</div>
-                  <div>{session.warmup}</div>
-                  <div>{session.cooldown}</div>
-                </div>
+                <RunSessionCard key={session.id} {...session} />
               ))}
             </div>
           ) : (
