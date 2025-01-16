@@ -2,10 +2,7 @@
 
 A running companion powered by Mistral AI and Supabase. [Live Demo here](https://runstral.letoquart.com)
 
-https://github.com/user-attachments/assets/d3f79ca6-0326-4883-94ee-871c5b3a165e
-
-Note: The context prompt feature is not yet available. For the video, the context was hardcoded as: "I am a student, and I am preparing for a 60km trail."
-Note 2: It is available now
+https://github.com/user-attachments/assets/def13039-d737-452d-944e-61846553be0a
 
 ## Features
 
@@ -44,6 +41,9 @@ Edit `.env.local` with your credentials:
 - `MISTRAL_API_KEY`
 
 ## Database Setup
+
+> [!NOTE]
+> Not the smoothest way to work with supabase locally, I'll improve it soon !
 
 Execute the following SQL in your Supabase SQL editor:
 
