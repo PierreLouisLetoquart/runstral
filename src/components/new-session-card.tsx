@@ -25,8 +25,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./ui/select";
+import { useUserContext } from "@/contexts/user-context";
 
 export function NewSessionCard() {
+  const { sentence } = useUserContext();
   const [isLoading, setIsLoading] = React.useState(false);
 
   const form = useForm<z.infer<typeof generateSchema>>({
@@ -46,7 +48,8 @@ export function NewSessionCard() {
       const formData = new FormData();
       formData.append(
         "user_context",
-        "I am a student and I prepare a trail of 60km.",
+        sentence ||
+          "I am a beginner, motivated to grow stronger and faster with every step.",
       );
       formData.append("session_mood", values.session_mood);
       formData.append("session_prompt", values.session_prompt);

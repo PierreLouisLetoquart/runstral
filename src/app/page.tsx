@@ -26,7 +26,7 @@ export default async function Page() {
 
       <section className="w-full flex flex-col-reverse md:flex-row gap-6">
         <section className="w-full md:w-2/3 space-y-3">
-          <h2 className="text-sm font-bold tracking-tight">Your sessions</h2>
+          <h2 className="text-sm font-bold tracking-tight">Running sessions</h2>
           {sessions && sessions.length > 0 ? (
             <div className="grid gap-4">
               {sessions.map((session: RunningSession) => (
