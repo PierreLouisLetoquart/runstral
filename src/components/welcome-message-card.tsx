@@ -27,13 +27,21 @@ export function WelcomeMessageCard() {
   return (
     <div className="w-full space-y-3 p-[12px] rounded-[18px] bg-[#FFEFD6] border border-[#FFC182] dark:bg-[#331E0B] dark:border-[#66350C]">
       <p className="leading-7 text-[#582D1D] dark:text-[#FFE0C2]">
-        🚀 This app is higly experimental! Please prompt new runs/sessions
+        🖥️ The app works perfectly on desktop and tablet, but it&apos;s not 100%
+        optimized for mobile yet.
+      </p>
+      <p className="leading-7 text-[#582D1D] dark:text-[#FFE0C2]">
+        🧪 This app is higly experimental! Please prompt new runs/sessions
         regarless of the current state and context of the app.
       </p>
       <p className="leading-7 text-[#582D1D] dark:text-[#FFE0C2]">
-        ⚠️ Mistral does not provide formatted output (at least with
-        Vercel&apos;s AI Sdk), so the session generation can sometimes goes
-        wrong...
+        😄 Mistral formatted output is used and the alpha stage of the app is
+        focused on the basics, please be gentle with the feedback and report any
+        issues you find ;)
+      </p>
+      <p className="leading-7 text-[#582D1D] dark:text-[#FFE0C2]">
+        Note: Context isn&apos;t up for the moment, so you can ignore the right
+        side of the screen.
       </p>
       <div>
         <Button
