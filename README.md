@@ -65,7 +65,8 @@ CREATE TABLE public.sessions (
     description text,
     completed boolean default false not null,
     warmup text,
-    cooldown text
+    cooldown text,
+    displayed boolean default true
 ) WITH (OIDS=FALSE);
 
 CREATE INDEX idx_sessions_user_id ON public.sessions(user_id);
