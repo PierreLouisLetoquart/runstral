@@ -30,10 +30,12 @@ export function ContextPromptCard() {
   };
 
   return (
-    <div className="p-[8px] rounded-[18px] border border-border border-dashed">
+    <div
+      className={`p-[8px] rounded-[18px] border border-dashed ${sentence ? "border-border" : "border-[#F5A898] dark:border-[#853A2D]"}`}
+    >
       <Textarea
-        className="border-none h-[90px] md:h-[130px] resize-none outline-none focus-visible:ring-0 shadow-none leading-8"
-        placeholder="I work a lot at a desk but I want to prepare a marathon..."
+        className={`border-none h-[90px] md:h-[130px] resize-none outline-none focus-visible:ring-0 shadow-none leading-8 ${sentence ? "placeholder:text-foreground" : "placeholder:text-[#D13415] dark:placeholder:text-[#FF977D]"}`}
+        placeholder="Tell us about your situation, objective..."
         value={sentence || undefined}
         onChange={(e) => setSentence(e.target.value)}
         maxLength={150}

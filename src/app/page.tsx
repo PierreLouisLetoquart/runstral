@@ -30,8 +30,6 @@ export default async function Page() {
     return <div>Error loading running sessions</div>;
   }
 
-  console.log(`Fetched ${sessions.length} running sessions`);
-
   return (
     <div className="flex flex-col gap-8 mt-12">
       <section className="w-full flex flex-col-reverse md:flex-row gap-6">
@@ -47,7 +45,9 @@ export default async function Page() {
             <div className="w-full space-y-3 p-[12px] rounded-[18px] bg-[#FBEBFB] border border-[#E9C2EC] dark:bg-[#351A35] dark:border-[#5E3061]">
               <p className="leading-7 text-[#953EA3] dark:text-[#E796F3]">
                 😔 You have no running sessions yet... Create a new one using
-                the form below!
+                the form below! And don&apos;t forget to add some context{" "}
+                <span className="hidden md:inline-block">&rarr;</span>
+                <span className="inline-block md:hidden">&uarr;</span>
               </p>
             </div>
           )}
