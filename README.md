@@ -4,6 +4,8 @@ A running companion powered by Mistral AI and Supabase. [Live Demo here](https:/
 
 https://github.com/user-attachments/assets/d3f79ca6-0326-4883-94ee-871c5b3a165e
 
+Note: The context prompt feature is not yet available. For the video, the context was hardcoded as: "I am a student, and I am preparing for a 60km trail."
+
 ## Features
 
 - AI-powered running session tracking
