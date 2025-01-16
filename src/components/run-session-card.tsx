@@ -1,6 +1,9 @@
 import { Database } from "@/lib/database.types";
-import { cn } from "@/lib/utils";
 import { HTMLAttributes } from "react";
+
+import { cn } from "@/lib/utils";
+import CheckBoxTitle from "./checkbox-title";
+import { RelativeDate } from "./relative-date-label";
 
 type Session = Database["public"]["Tables"]["sessions"]["Row"];
 
@@ -21,6 +24,7 @@ interface RunSessionCardProps extends HTMLAttributes<HTMLDivElement> {
 export function RunSessionCard({
   className,
   completed,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   cooldown,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   created_at,
@@ -30,49 +34,42 @@ export function RunSessionCard({
   id,
   intensity,
   type,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   warmup,
   ...props
 }: RunSessionCardProps) {
   return (
     <div
       id={id}
-      className={cn("rounded-lg border p-4 space-y-2", className)}
+      className={cn(
+        "p-[12px] rounded-[18px] border border-border space-y-[8px]",
+        className,
+      )}
       {...props}
     >
-      <div className="flex items-center justify-between">
-        <h3 className="font-semibold">{type || "Untitled Session"}</h3>
-        <span
-          className={`px-2 py-1 rounded-full text-sm ${
-            completed
-              ? "bg-green-100 text-green-800"
-              : "bg-yellow-100 text-yellow-800"
-          }`}
-        >
-          {completed ? "Completed" : "Pending"}
-        </span>
+      <div className="flex items-center gap-2">
+        <CheckBoxTitle
+          session_id={id}
+          text={type || "Workout"}
+          checked={completed}
+        />
+        <RelativeDate dateString={day} completed={completed} />
       </div>
 
-      <div className="text-sm text-gray-500">
-        <p>Day: {day}</p>
-        {duration && <p>Duration: {duration} minutes</p>}
-        {intensity && <p>Intensity: {intensity}</p>}
-      </div>
+      <p className="text-sm font-light leading-7">{description}</p>
 
-      {description && <p className="text-sm text-gray-600">{description}</p>}
-
-      <div className="text-sm grid grid-cols-2 gap-2">
-        {warmup && (
-          <div className="text-blue-600">
-            <p className="font-medium">Warmup</p>
-            <p>{warmup}</p>
+      <div className="flex justify-between items-center">
+        <div className="flex items-center gap-2">
+          <div className="px-[10px] py-[6px] rounded-[6px] text-xs font-medium border border-border">
+            ~ {duration} min
           </div>
-        )}
-        {cooldown && (
-          <div className="text-purple-600">
-            <p className="font-medium">Cooldown</p>
-            <p>{cooldown}</p>
+          <div className="px-[10px] py-[6px] rounded-[6px] text-xs font-medium border border-border">
+            Intensity: {intensity}
           </div>
-        )}
+        </div>
+        <div className="px-[10px] py-[6px] rounded-[6px] text-xs font-medium border border-border">
+          {"WU & CD"}
+        </div>
       </div>
     </div>
   );
