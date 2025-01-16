@@ -11,7 +11,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { cn } from "@/lib/utils";
 import { generateSchema } from "@/lib/schemas";
 import { useUserContext } from "@/contexts/user-context";
-import { generateSession } from "@/app/actions";
+import generateSession from "@/app/actions";
 
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
@@ -130,10 +130,10 @@ export function NewSessionCard() {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectGroup>
-                        <SelectItem value="tired">Tired/Ready</SelectItem>
+                        <SelectItem value="tired">Tired/Fatigued</SelectItem>
                         <SelectItem value="normal">Normal</SelectItem>
                         <SelectItem value="energized">
-                          Tired/Fatigued
+                          Energized/Excited
                         </SelectItem>
                       </SelectGroup>
                     </SelectContent>
