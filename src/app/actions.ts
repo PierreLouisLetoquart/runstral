@@ -115,6 +115,21 @@ export async function completeSession(sessionId: string) {
   revalidatePath("/", "layout");
 }
 
+export async function removeSession(sessionId: string) {
+  const supabase = await createClient();
+
+  const { error } = await supabase
+    .from("sessions")
+    .update({ displayed: false })
+    .match({ id: sessionId });
+
+  if (error) {
+    console.error("Error completing session:", error);
+  }
+
+  revalidatePath("/", "layout");
+}
+
 export async function improvePrompt(prompt: string) {
   const apiKey = process.env.MISTRAL_API_KEY;
   const mistral = new Mistral({ apiKey: apiKey });

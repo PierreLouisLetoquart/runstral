@@ -23,6 +23,7 @@ export default async function Page() {
     .from("sessions")
     .select("*")
     .eq("user_id", user.id)
+    .eq("displayed", true)
     .order("day", { ascending: true });
 
   if (error) {

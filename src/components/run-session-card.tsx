@@ -1,10 +1,11 @@
-import { Database } from "@/lib/database.types";
 import { HTMLAttributes } from "react";
 
 import { cn } from "@/lib/utils";
+import { Database } from "@/lib/database.types";
 import CheckBoxTitle from "./checkbox-title";
 import { RelativeDate } from "./relative-date-label";
 import TooltipWithNav from "./tooltip-with-nav";
+import { RemoveBtn } from "./remove-button";
 
 type Session = Database["public"]["Tables"]["sessions"]["Row"];
 
@@ -20,22 +21,23 @@ interface RunSessionCardProps extends HTMLAttributes<HTMLDivElement> {
   readonly type: Session["type"];
   readonly user_id: Session["user_id"];
   readonly warmup: Session["warmup"];
+  readonly displayed: Session["displayed"];
 }
 
 export function RunSessionCard({
   className,
   completed,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   cooldown,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   created_at,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  displayed,
   day,
   description,
   duration,
   id,
   intensity,
   type,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   warmup,
   ...props
 }: RunSessionCardProps) {
@@ -48,13 +50,16 @@ export function RunSessionCard({
       )}
       {...props}
     >
-      <div className="flex items-center gap-2">
-        <CheckBoxTitle
-          session_id={id}
-          text={type || "Workout"}
-          checked={completed}
-        />
-        <RelativeDate dateString={day} completed={completed} />
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <CheckBoxTitle
+            sessionId={id}
+            text={type || "Workout"}
+            checked={completed}
+          />
+          <RelativeDate dateString={day} completed={completed} />
+        </div>
+        <RemoveBtn sessionId={id} />
       </div>
 
       <p className="text-sm font-light leading-7">{description}</p>

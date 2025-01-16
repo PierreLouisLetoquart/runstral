@@ -40,6 +40,7 @@ export type Database = {
           created_at: string
           day: string
           description: string | null
+          displayed: boolean | null
           duration: number | null
           id: string
           intensity: string | null
@@ -53,6 +54,7 @@ export type Database = {
           created_at?: string
           day: string
           description?: string | null
+          displayed?: boolean | null
           duration?: number | null
           id?: string
           intensity?: string | null
@@ -66,6 +68,7 @@ export type Database = {
           created_at?: string
           day?: string
           description?: string | null
+          displayed?: boolean | null
           duration?: number | null
           id?: string
           intensity?: string | null
