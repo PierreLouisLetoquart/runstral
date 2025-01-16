@@ -1,14 +1,19 @@
-import { NewSessionForm } from "@/components/new-session-form";
 import { WelcomeMessageCard } from "@/components/welcome-message-card";
-import { SessionCard } from "@/components/session-card";
 import { createClient } from "@/lib/supabase/server";
 import { NewSessionCard } from "@/components/new-session-card";
 import { ContextPromptCard } from "@/components/context-prompt-card";
 
 type RunningSession = {
-  id: number;
+  id: string;
   created_at: string;
-  session_content: string;
+  user_id: string;
+  day: string;
+  duration: number;
+  intensity: string;
+  type: string;
+  description: string;
+  warmup: string;
+  cooldown: string;
   completed: boolean;
 };
 
@@ -16,9 +21,9 @@ export default async function Page() {
   const supabase = await createClient();
 
   const { data: sessions, error } = await supabase
-    .from("running_sessions")
+    .from("sessions")
     .select("*")
-    .order("created_at", { ascending: false });
+    .order("day", { ascending: false });
 
   if (error) {
     console.error("Error fetching running sessions:", error);
@@ -33,10 +38,22 @@ export default async function Page() {
         <section className="w-full md:w-2/3 space-y-3">
           <h2 className="text-sm font-bold tracking-tight">Your sessions</h2>
           {sessions && sessions.length > 0 ? (
-            <p className="leading-7 text-muted-foreground">
-              You have sessions yet. Create one using the session generation
-              form bellow ;)
-            </p>
+            <div className="grid gap-4">
+              {sessions.map((session: RunningSession) => (
+                <div
+                  key={session.id}
+                  className="p-4 bg-[#E9F6E9] border border-[#B2DDB5] dark:bg-[#1B2A1E] dark:border-[#2D5736] rounded-[18px]"
+                >
+                  <div>{session.day}</div>
+                  <div>{session.description}</div>
+                  <div>{session.type}</div>
+                  <div>{session.intensity}</div>
+                  <div>{session.duration}</div>
+                  <div>{session.warmup}</div>
+                  <div>{session.cooldown}</div>
+                </div>
+              ))}
+            </div>
           ) : (
             <div className="w-full space-y-3 p-[12px] rounded-[18px] bg-[#E9F6E9] border border-[#B2DDB5] dark:bg-[#1B2A1E] dark:border-[#2D5736]">
               <p className="leading-7 text-[#203C25] dark:text-[#C2F0C2]">
