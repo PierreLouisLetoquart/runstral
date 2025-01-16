@@ -2,11 +2,7 @@
 
 A running companion powered by Mistral AI and Supabase. [Live Demo here](https://runstral.letoquart.com)
 
-
-
-https://github.com/user-attachments/assets/4a898355-e62e-47a9-9f3e-66a00c7e7ebb
-
-
+https://github.com/user-attachments/assets/d3f79ca6-0326-4883-94ee-871c5b3a165e
 
 ## Features
 
