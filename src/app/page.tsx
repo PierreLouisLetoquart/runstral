@@ -10,10 +10,20 @@ type RunningSession = Database["public"]["Tables"]["sessions"]["Row"];
 export default async function Page() {
   const supabase = await createClient();
 
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    console.error("No user found");
+    return <div>Error loading user</div>;
+  }
+
   const { data: sessions, error } = await supabase
     .from("sessions")
     .select("*")
-    .order("day", { ascending: false });
+    .eq("user_id", user.id)
+    .order("day", { ascending: true });
 
   if (error) {
     console.error("Error fetching running sessions:", error);

@@ -4,6 +4,7 @@ import { HTMLAttributes } from "react";
 import { cn } from "@/lib/utils";
 import CheckBoxTitle from "./checkbox-title";
 import { RelativeDate } from "./relative-date-label";
+import TooltipWithNav from "./tooltip-with-nav";
 
 type Session = Database["public"]["Tables"]["sessions"]["Row"];
 
@@ -67,9 +68,18 @@ export function RunSessionCard({
             Intensity: {intensity}
           </div>
         </div>
-        <div className="px-[10px] py-[6px] rounded-[6px] text-xs font-medium border border-border">
-          {"WU & CD"}
-        </div>
+        <TooltipWithNav
+          tips={[
+            {
+              title: "Warmup",
+              description: warmup!,
+            },
+            {
+              title: "Cooldown",
+              description: cooldown!,
+            },
+          ]}
+        />
       </div>
     </div>
   );
