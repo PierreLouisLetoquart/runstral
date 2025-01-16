@@ -69,31 +69,6 @@ CREATE TABLE public.sessions (
 ) WITH (OIDS=FALSE);
 
 CREATE INDEX idx_sessions_user_id ON public.sessions(user_id);
-
-ALTER TABLE public.sessions ENABLE ROW LEVEL SECURITY;
-
-alter policy "Enable insert for authenticated users only"
-on "public"."sessions"
-to authenticated
-with check (
-  true
-);
-
-alter policy "Enable read access for all users"
-on "public"."sessions"
-to public
-using (
-  true
-);
-
-alter policy "Enable update for users based on user id"
-on "public"."sessions"
-to public
-using (
- (( SELECT auth.uid() AS uid) = user_id)
-with check (
-  true
-);
 ```
 
 ## Usage
