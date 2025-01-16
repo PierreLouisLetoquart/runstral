@@ -1,9 +1,10 @@
 import Link from "next/link";
+import Image from "next/image";
 
 import { cn } from "@/lib/utils";
 import { ModeToggle } from "./mode-toggle";
 import { SignoutButon } from "./signout-button";
-import Image from "next/image";
+import { OnboardingComp } from "./welcome/onboarding-server";
 
 // eslint-disable-next-line -- Weird eslint error saying equals to supertype (makes sense btw, but let me do my thing)
 interface NavbarProps extends React.HTMLAttributes<HTMLElement> {}
@@ -36,6 +37,7 @@ export function Navbar({ className, ...props }: NavbarProps) {
         </h1>
       </Link>
       <div className="flex items-center gap-3">
+        <OnboardingComp />
         <ModeToggle />
         <SignoutButon />
       </div>

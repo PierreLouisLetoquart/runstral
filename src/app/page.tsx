@@ -1,4 +1,3 @@
-import { WelcomeMessageCard } from "@/components/welcome-message-card";
 import { createClient } from "@/lib/supabase/server";
 import { NewSessionCard } from "@/components/new-session-card";
 import { ContextPromptCard } from "@/components/context-prompt-card";
@@ -35,8 +34,6 @@ export default async function Page() {
 
   return (
     <div className="flex flex-col gap-8 mt-12">
-      <WelcomeMessageCard />
-
       <section className="w-full flex flex-col-reverse md:flex-row gap-6">
         <section className="w-full md:w-2/3 space-y-3">
           <h2 className="text-sm font-bold tracking-tight">Running sessions</h2>
