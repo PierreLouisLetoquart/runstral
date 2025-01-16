@@ -25,15 +25,18 @@ export function WelcomeMessageCard() {
   }
 
   return (
-    <div className="w-full space-y-3 p-[12px] rounded-[18px] bg-[#FFEFD6] border border-[#FFC182] dark:bg-[#331E0B] dark:border-[#66350C]">
-      <p className="leading-7 text-[#582D1D] dark:text-[#FFE0C2]">
-        🏃‍♂️ Welcome to Runstral - Your AI-powered running session generator!
-      </p>
-      <p className="leading-7 text-[#582D1D] dark:text-[#FFE0C2]">
-        💪 Create personalized running workouts based on your fitness level and
-        goals using advanced AI technology.
-      </p>
-      <p className="leading-7 text-[#582D1D] dark:text-[#FFE0C2]">
+    <div className="w-full text-[#582D1D] dark:text-[#FFE0C2] space-y-3 p-[12px] rounded-[18px] bg-[#FFEFD6] border border-[#FFC182] dark:bg-[#331E0B] dark:border-[#66350C]">
+      <p className="leading-7">🏃‍♂️ Welcome to Runstral</p>
+
+      <div className="w-full space-y-2">
+        <p className="leading-7">⚒️ Three simple steps to get started:</p>
+        <ol className="pl-4">
+          <li>1. Complete the context on the right </li>
+          <li>2. Complete the generation form on left </li>
+          <li>3. Click on the &quot;Generate&quot; button</li>
+        </ol>
+      </div>
+      <p className="leading-7">
         ⚠️ Please note: This is an experimental app in alpha stage. The
         interface works best on desktop and tablet devices. Also it uses
         formatted output for the Mistral API, so it may encounter some issues.

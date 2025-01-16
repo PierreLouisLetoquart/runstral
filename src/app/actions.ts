@@ -3,12 +3,15 @@
 import { Mistral } from "@mistralai/mistralai";
 import { format } from "date-fns";
 
-import { constructMessagePrompt } from "@/lib/prompts";
+import {
+  constructMessageImprovePrompt,
+  constructMessagePrompt,
+} from "@/lib/prompts";
 import { generateSchema } from "@/lib/schemas";
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 
-export default async function generateSession(formData: FormData) {
+export async function generateSession(formData: FormData) {
   const apiKey = process.env.MISTRAL_API_KEY;
   const mistral = new Mistral({ apiKey: apiKey });
 
@@ -110,4 +113,34 @@ export async function completeSession(sessionId: string) {
   }
 
   revalidatePath("/", "layout");
+}
+
+export async function improvePrompt(prompt: string) {
+  const apiKey = process.env.MISTRAL_API_KEY;
+  const mistral = new Mistral({ apiKey: apiKey });
+
+  const improvedPrompt = await mistral.chat.complete({
+    model: "mistral-large-latest",
+    // @ts-expect-error typescript things...
+    messages: constructMessageImprovePrompt(prompt),
+  });
+
+  if (!improvedPrompt || improvedPrompt === undefined) {
+    console.log("Chat response is undefined");
+    return {
+      errors: "An error occured during the prompt improvement...",
+    };
+  }
+
+  // clenup the answer
+  // @ts-expect-error idk...
+  const improvedPromptStr = improvedPrompt.choices[0].message.content as string;
+
+  const improvedPromptCleaned = improvedPromptStr
+    .replace("<improved_prompt>", "")
+    .replace("</improved_prompt>", "")
+    .replace('\"', "")
+    .trim();
+
+  return improvedPromptCleaned;
 }

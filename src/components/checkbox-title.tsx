@@ -1,9 +1,10 @@
 "use client";
 
+import { HTMLAttributes, useTransition } from "react";
+
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import { completeSession } from "@/app/generate";
-import { HTMLAttributes, useTransition } from "react";
+import { completeSession } from "@/app/actions";
 import { cn } from "@/lib/utils";
 
 interface CheckBoxTitleProps extends HTMLAttributes<HTMLDivElement> {

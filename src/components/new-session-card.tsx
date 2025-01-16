@@ -10,7 +10,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import { cn } from "@/lib/utils";
 import { generateSchema } from "@/lib/schemas";
-import generateSession from "@/app/generate";
+import { useUserContext } from "@/contexts/user-context";
+import { generateSession } from "@/app/actions";
 
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
@@ -25,7 +26,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./ui/select";
-import { useUserContext } from "@/contexts/user-context";
 
 export function NewSessionCard() {
   const { sentence } = useUserContext();
@@ -103,7 +103,11 @@ export function NewSessionCard() {
                       mode="single"
                       selected={field.value}
                       onSelect={field.onChange}
-                      disabled={(date) => date < new Date()}
+                      disabled={(date) => {
+                        const today = new Date();
+                        today.setHours(0, 0, 0, 0);
+                        return date < today;
+                      }}
                       initialFocus
                     />
                   </PopoverContent>

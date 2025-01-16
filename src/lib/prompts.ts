@@ -94,3 +94,70 @@ export function constructMessagePrompt(
     },
   ];
 }
+
+export function constructMessageImprovePrompt(prompt: string) {
+  const constructedPrompt = `
+    Here is the user's original prompt:
+
+    <user_prompt>
+    ${prompt}
+    </user_prompt>
+
+    To improve this prompt, follow these steps:
+
+    1. Analyze the original prompt:
+       - Identify the main goal or purpose of the prompt
+       - Note any specific requirements or constraints mentioned
+       - Recognize any ambiguities or areas that lack clarity
+
+    2. Consider the following aspects for improvement:
+       - Clarity: Ensure the prompt is easy to understand and leaves no room for misinterpretation
+       - Specificity: Add more details or parameters if necessary
+       - Structure: Organize the prompt in a logical and coherent manner
+       - Completeness: Address all relevant aspects of generating running sessions
+       - Tone and style: Adjust the language to be more direct and actionable
+
+    3. Enhance the prompt by:
+       - Rephrasing unclear sections
+       - Adding missing information or context
+       - Removing unnecessary or redundant elements
+       - Incorporating best practices for prompt engineering
+
+    4. Ensure the improved prompt covers essential aspects of running session generation, such as:
+       - General physical condition or mood
+       - Intensity or difficulty level desired
+       - Type of terrain or environment
+       - Any specific goals or focus areas (e.g., speed, endurance, interval training)
+       - Any specific course targets (e.g., distance, time, pace) ("Marathon", "5K", "Hill repeats")
+       - Consideration of user's fitness level or preferences, if applicable
+
+    Provide your response in the following format:
+
+    NO ANALYSIS, NO EXPLANATIONS, JUST THE IMPROVED PROMPT.
+
+    <improved_prompt>
+    Write the improved version of the prompt here. This should be a complete, ready-to-use prompt that incorporates all your enhancements.
+    IMPORTANT: It must be short and concise, focusing on the key elements for generating running sessions.
+    </improved_prompt>
+
+    Remember to maintain the original intent of the user's prompt while making it more effective for AI-generated running sessions.
+
+    The perfect prompt is:
+    `;
+
+  return [
+    {
+      role: "system",
+      content: `
+        You are an AI assistant that specializes in prompt engineering.
+        Your task is to analyze and improve a user-provided prompt for an app
+        that generates running sessions. The goal is to enhance the effectiveness
+        and clarity of the prompt to ensure better results from the AI system.
+      `,
+    },
+    {
+      role: "user",
+      content: constructedPrompt,
+    },
+  ];
+}

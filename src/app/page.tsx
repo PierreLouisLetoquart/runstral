@@ -20,6 +20,8 @@ export default async function Page() {
     return <div>Error loading running sessions</div>;
   }
 
+  console.log(`Fetched ${sessions.length} running sessions`);
+
   return (
     <div className="flex flex-col gap-8 mt-12">
       <WelcomeMessageCard />
@@ -34,10 +36,10 @@ export default async function Page() {
               ))}
             </div>
           ) : (
-            <div className="w-full space-y-3 p-[12px] rounded-[18px] bg-[#E9F6E9] border border-[#B2DDB5] dark:bg-[#1B2A1E] dark:border-[#2D5736]">
-              <p className="leading-7 text-[#203C25] dark:text-[#C2F0C2]">
-                You have no sessions yet... Create one using the session
-                generation form powered by Mistral® AI bellow 🔮
+            <div className="w-full space-y-3 p-[12px] rounded-[18px] bg-[#FBEBFB] border border-[#E9C2EC] dark:bg-[#351A35] dark:border-[#5E3061]">
+              <p className="leading-7 text-[#953EA3] dark:text-[#E796F3]">
+                😔 You have no running sessions yet... Create a new one using
+                the form below!
               </p>
             </div>
           )}
@@ -48,35 +50,6 @@ export default async function Page() {
           <ContextPromptCard />
         </section>
       </section>
-
-      {/* <div className="w-full max-w-2xl mx-auto">
-        <h2 className="text-2xl font-semibold mb-4">Your Running Sessions</h2>
-
-        {sessions && sessions.length > 0 ? (
-          <div className="grid gap-4">
-            {sessions.map((session: RunningSession) => (
-              <SessionCard
-                key={session.id}
-                id={session.id}
-                created_at={session.created_at}
-                session_content={session.session_content}
-                completed={session.completed}
-              />
-            ))}
-          </div>
-        ) : (
-          <div className="text-center py-8 bg-muted rounded-lg">
-            <p className="text-lg text-muted-foreground">
-              You haven&apos;t created any running sessions yet.
-            </p>
-            <p className="text-sm text-muted-foreground mt-1">
-              Use the form above to generate your first session!
-            </p>
-          </div>
-        )}
-      </div> */}
-
-      {/* <NewSessionForm /> */}
     </div>
   );
 }
