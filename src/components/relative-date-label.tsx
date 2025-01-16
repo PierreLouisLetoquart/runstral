@@ -25,18 +25,19 @@ export function RelativeDate({
   };
 
   const getDateColor = () => {
-    if (isTodayDate) return "text-emerald-500";
-    if (isPastDate) return "text-red-500";
-    return "text-blue-500";
+    if (isTodayDate) return "text-[#203C25] dark:text-[#C2F0C2]";
+    if (isPastDate) return "text-[#5C271F] dark:text-[#FBD3CB]";
+    return "text-[#113264] dark:text-[#C2E6FF]";
   };
 
   if (completed) {
     return (
       <p
         className={cn(
-          "tracking-tight text-sm font-light text-emerald-500",
+          "tracking-tight text-sm font-light text-[#5C271F] dark:text-[#FBD3CB]",
           className,
         )}
+        {...props}
       >
         Completed
       </p>
@@ -50,6 +51,7 @@ export function RelativeDate({
         getDateColor(),
         className,
       )}
+      {...props}
     >
       {getRelativeDate()}
     </p>
