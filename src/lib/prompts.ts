@@ -112,24 +112,14 @@ export function constructMessageImprovePrompt(prompt: string) {
 
     2. Consider the following aspects for improvement:
        - Clarity: Ensure the prompt is easy to understand and leaves no room for misinterpretation
-       - Specificity: Add more details or parameters if necessary
        - Structure: Organize the prompt in a logical and coherent manner
        - Completeness: Address all relevant aspects of generating running sessions
        - Tone and style: Adjust the language to be more direct and actionable
 
     3. Enhance the prompt by:
        - Rephrasing unclear sections
-       - Adding missing information or context
        - Removing unnecessary or redundant elements
        - Incorporating best practices for prompt engineering
-
-    4. Ensure the improved prompt covers essential aspects of running session generation, such as:
-       - General physical condition or mood
-       - Intensity or difficulty level desired
-       - Type of terrain or environment
-       - Any specific goals or focus areas (e.g., speed, endurance, interval training)
-       - Any specific course targets (e.g., distance, time, pace) ("Marathon", "5K", "Hill repeats")
-       - Consideration of user's fitness level or preferences, if applicable
 
     Provide your response in the following format:
 
