@@ -1,10 +1,12 @@
 # Runstral 🏃‍♂️
 
-A running companion powered by Mistral AI and Supabase. [Live Demo here](https://runstral.letoquart.com)
-
 <p align="center">
   <img src="./assets/banner.png" width="70%" height="auto" alt="Runstral Banner">
 </p>
+
+A running companion powered by Mistral AI and Supabase. [Live Demo here](https://runstral.letoquart.com)
+
+## Video demo
 
 https://github.com/user-attachments/assets/def13039-d737-452d-944e-61846553be0a
 
