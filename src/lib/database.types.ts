@@ -9,6 +9,24 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      contexts: {
+        Row: {
+          id: number
+          text: string
+          user_id: string | null
+        }
+        Insert: {
+          id?: number
+          text: string
+          user_id?: string | null
+        }
+        Update: {
+          id?: number
+          text?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       running_sessions: {
         Row: {
           completed: boolean
