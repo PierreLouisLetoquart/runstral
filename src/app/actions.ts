@@ -12,6 +12,16 @@ import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 
 export async function generateSession(formData: FormData) {
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    throw new Error("User not authenticated");
+  }
+
   const apiKey = process.env.MISTRAL_API_KEY;
   const mistral = new Mistral({ apiKey: apiKey });
 
@@ -35,11 +45,43 @@ export async function generateSession(formData: FormData) {
 
   const { user_context, session_mood, session_prompt } = validatedFields.data;
 
+  // three sessions before the date of the new session
+  const { data: previousSessions, error: previousSessError } = await supabase
+    .from("sessions")
+    .select("*")
+    .match({ user_id: user.id })
+    .eq("completed", true) // only completed sessions, not interested by uncompleted ones
+    .lte("day", formattedDate)
+    .order("day", { ascending: false })
+    .limit(3);
+
+  if (previousSessError) {
+    console.error("Error fetching previous sessions:", previousSessError);
+  }
+
+  // three sessions after the date of the new session
+  const { data: upcommingSessions, error: upcommingSessError } = await supabase
+    .from("sessions")
+    .select("*")
+    .match({ user_id: user.id })
+    .eq("displayed", true) // only displayed sessions e.g. not removed
+    .gte("day", formattedDate)
+    .order("day", { ascending: true })
+    .limit(3);
+
+  if (upcommingSessError) {
+    console.error("Error fetching upcomming sessions:", upcommingSessError);
+  }
+
   const messagePrompt = constructMessagePrompt(
     user_context,
     session_mood,
     session_prompt,
+    previousSessions,
+    upcommingSessions,
   );
+
+  console.log("PROMPT:\n\n", messagePrompt);
 
   const chatResponse = await mistral.chat.complete({
     model: "mistral-large-latest",
@@ -53,20 +95,6 @@ export async function generateSession(formData: FormData) {
     return {
       errors: "An error occured during the session creation...",
     };
-  }
-  // else {
-  //   // @ts-expect-error idk...
-  //   console.log("JSON:", chatResponse.choices[0].message.content);
-  // }
-
-  const supabase = await createClient();
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) {
-    throw new Error("User not authenticated");
   }
 
   // @ts-expect-error idk...
