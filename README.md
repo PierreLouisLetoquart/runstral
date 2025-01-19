@@ -8,7 +8,7 @@ A running companion powered by Mistral AI and Supabase. [Live Demo here](https:/
 
 ## Video demo
 
-https://github.com/user-attachments/assets/def13039-d737-452d-944e-61846553be0a
+https://github.com/user-attachments/assets/992bb046-52b4-4b0c-b33a-67f4c6f375cf
 
 ## Features
 
